@@ -1,12 +1,21 @@
-# Change Log
+---
+title: "IdentityCommand.CEM Release 0.1"
+date: 2026-10-07 00:00:00
+version: 0.1.0
+tags:
+  - Release Notes
+  - Connect-CEMTenant
+  - New-CEMWorkspaceDefinition
+  - New-CEMDelegateDefinition
+  - New-CEMWorkspaceDelegation
+  - Get-CEMWorkspaceDelegation
+  - Find-CEMWorkspaceDelegation
+  - Set-CEMWorkspaceDelegation
+  - Remove-CEMWorkspaceDelegation
+  - Get-CEMModuleData
+---
 
-All notable changes to this project will be documented in this file.
-
-## Unreleased
-
-- N/A
-
-## [0.1.0] - 2026-10-07
+## [0.1.0]
 
 ### Added
 
@@ -29,4 +38,3 @@ All notable changes to this project will be documented in this file.
 - `Set-CEMWorkspaceDelegation`: replace the delegates of an existing delegation.
 - `Remove-CEMWorkspaceDelegation`: delete a workspace delegation.
 - `Get-CEMModuleData`: get the module version and session configuration data.
-
