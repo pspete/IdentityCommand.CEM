@@ -14,7 +14,7 @@ function Remove-CEMWorkspaceDelegation {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/delegations/workspace/delegation/$id"
+        $URI = "$(Resolve-RequestUrl)/api/delegations/workspace/delegation/$id"
 
         #Deletes every delegate from every workspace the delegation covers - there is no partial
         #removal, only deleting the whole delegation.

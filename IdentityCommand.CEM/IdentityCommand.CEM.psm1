@@ -83,6 +83,7 @@ $ISPSSSession = [ordered]@{
     User               = $null
     TenantId           = $null
     SessionId          = $null
+    Subdomain          = $null
     WebSession         = $null
     StartTime          = $null
     ElapsedTime        = $null
@@ -94,3 +95,8 @@ $ISPSSSession = [ordered]@{
 } | Add-CustomType -Type IdCmd.Session
 
 New-Variable -Name ISPSSSession -Value $ISPSSSession -Scope Script -Force
+
+#Platform discovery key and endpoint of the service, used to resolve the service URL from the IdentityCommand session.
+#Cloud Visibility is served from the tenant-scoped bootstrap URL (<subdomain>-cem.cyberark.cloud), not the regional api URL.
+New-Variable -Name ServiceKey -Value 'cem' -Scope Script -Force
+New-Variable -Name ServiceEndpoint -Value 'bootstrap' -Scope Script -Force
