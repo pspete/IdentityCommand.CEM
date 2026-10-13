@@ -28,7 +28,7 @@ function New-CEMWorkspaceDelegation {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/delegations/workspace/$cloud_platform"
+        $URI = "$(Resolve-RequestUrl)/api/delegations/workspace/$cloud_platform"
 
         $body = [ordered]@{
             workspaces = @($WorkspaceDefinition)

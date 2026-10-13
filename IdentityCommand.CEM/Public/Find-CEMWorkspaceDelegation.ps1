@@ -54,7 +54,7 @@ function Find-CEMWorkspaceDelegation {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/delegations/workspace/search"
+        $URI = "$(Resolve-RequestUrl)/api/delegations/workspace/search"
 
         $Filters = $PSBoundParameters | Get-Parameter -ParametersToKeep cloud_platforms, workspace_names, workspace_types, owners
 

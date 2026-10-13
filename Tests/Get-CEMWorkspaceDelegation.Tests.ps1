@@ -82,4 +82,49 @@ Describe 'Get-CEMWorkspaceDelegation' {
 
     }
 
+    Context 'Without a module session' {
+
+        BeforeEach {
+
+            InModuleScope -ModuleName $Script:CEMModuleName {
+                $ISPSSSession = [ordered]@{
+                    tenant_url = $null
+                    Subdomain  = $null
+                    StartTime  = $null
+                    WebSession = $null
+                }
+                New-Variable -Name ISPSSSession -Value $ISPSSSession -Scope Script -Force
+            }
+
+            Mock -CommandName Get-IDSession -ModuleName $Script:CEMModuleName -MockWith {
+                [ordered]@{
+                    tenant_url = 'https://sometenant.id.cyberark.cloud'
+                    Subdomain  = 'sometenant'
+                    StartTime  = Get-Date '2026-01-01T09:00:00'
+                    WebSession = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+                }
+            }
+
+            Mock -CommandName Resolve-ServiceUrl -ModuleName $Script:CEMModuleName -MockWith {
+                [pscustomobject]@{ ServiceUrl = "https://$Subdomain-$Service.cyberark.cloud" }
+            }
+
+        }
+
+        It 'resolves the service URL from the bootstrap endpoint' {
+            $null = Get-CEMWorkspaceDelegation -cloud_platform AWS -workspace_id '123456789012' -workspace_type account
+            Should -Invoke -CommandName Resolve-ServiceUrl -ModuleName $Script:CEMModuleName -ParameterFilter {
+                $Service -eq 'cem' -and $Subdomain -eq 'sometenant' -and $Endpoint -eq 'bootstrap'
+            } -Times 1 -Exactly -Scope It
+        }
+
+        It 'sends request to the resolved service URL' {
+            $null = Get-CEMWorkspaceDelegation -cloud_platform AWS -workspace_id '123456789012' -workspace_type account
+            Should -Invoke -CommandName Invoke-IDRestMethod -ModuleName $Script:CEMModuleName -ParameterFilter {
+                $URI -eq 'https://sometenant-cem.cyberark.cloud/api/delegations/workspace/details'
+            } -Times 1 -Exactly -Scope It
+        }
+
+    }
+
 }

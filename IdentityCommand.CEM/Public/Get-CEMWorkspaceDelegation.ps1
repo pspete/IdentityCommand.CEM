@@ -28,7 +28,7 @@ function Get-CEMWorkspaceDelegation {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/delegations/workspace/details"
+        $URI = "$(Resolve-RequestUrl)/api/delegations/workspace/details"
 
         $body = $PSBoundParameters | Get-Parameter
 
