@@ -39,13 +39,6 @@ function Find-CEMWorkspaceDelegation {
             Mandatory = $false,
             ValueFromPipelinebyPropertyName = $true
         )]
-        [ValidateRange(0, [int]::MaxValue)]
-        [int]$offset,
-
-        [parameter(
-            Mandatory = $false,
-            ValueFromPipelinebyPropertyName = $true
-        )]
         [ValidateRange(1, [int]::MaxValue)]
         [int]$limit
     )
@@ -64,7 +57,7 @@ function Find-CEMWorkspaceDelegation {
             $body['filters'] = $Filters
         }
 
-        if (-not $PSBoundParameters.ContainsKey('offset')) { $body['offset'] = 0 }
+        $body['offset'] = 0
         if (-not $PSBoundParameters.ContainsKey('limit')) { $body['limit'] = 50 }
 
         $result = Invoke-IDRestMethod -Uri $URI -Method POST -Body ($body | ConvertTo-Json -Depth 4)

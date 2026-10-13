@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 - `Connect-CEMTenant`. Authenticate with `New-IDSession` or `New-IDPlatformToken` from `IdentityCommand` instead.
+- `-offset` from `Find-CEMWorkspaceDelegation`. Every page is retrieved automatically, and a starting offset returned duplicated and missing items.
 
 ## [0.1.0] - 2026-10-07
 

@@ -75,18 +75,6 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="5" aliases="none">
-          <maml:name>offset</maml:name>
-          <maml:description>
-            <maml:para>Pagination offset for the first page of results (zero-based). Defaults to 0; subsequent pages are requested automatically.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-          <dev:type>
-            <maml:name>Int32</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>0</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="6" aliases="none">
           <maml:name>limit</maml:name>
           <maml:description>
@@ -161,18 +149,6 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="5" aliases="none">
-        <maml:name>offset</maml:name>
-        <maml:description>
-          <maml:para>Pagination offset for the first page of results (zero-based). Defaults to 0; subsequent pages are requested automatically.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-        <dev:type>
-          <maml:name>Int32</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="6" aliases="none">
         <maml:name>limit</maml:name>
