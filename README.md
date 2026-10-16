@@ -1,3 +1,7 @@
+![Logo][Logo]
+
+[Logo]: /docs/media/images/IdentityCommand.CEM.png
+
 # IdentityCommand.CEM
 
 **IdentityCommand.CEM** is a PowerShell module that provides a set of easy-to-use commands, allowing you to interact with the **CyberArk Workspace Delegation API** (part of Cloud Visibility, formerly Cloud Entitlements Manager) from within the PowerShell environment.
