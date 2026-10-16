@@ -1,3 +1,7 @@
+![Logo][Logo]
+
+[Logo]: /docs/media/images/IdentityCommand.CEM.png
+
 # IdentityCommand.CEM
 
 **IdentityCommand.CEM** is a PowerShell module that provides a set of easy-to-use commands, allowing you to interact with the **CyberArk Workspace Delegation API** (part of Cloud Visibility, formerly Cloud Entitlements Manager) from within the PowerShell environment.
@@ -28,29 +32,21 @@ An overview of some of the features of the module are found in the below section
 
 ### Cloud Visibility Authentication
 
-The `Connect-CEMTenant` command initialises the bearer token used for module operations against the Workspace Delegation API.
-
-Cloud Visibility is served from a tenant-scoped gateway (`https://<subdomain>-cem.cyberark.cloud`), not the regional host platform discovery reports for the `cem` service key - `Connect-CEMTenant` builds this url directly from the subdomain rather than trusting the discovered value.
-
-If an Identity session already exists (established with the `IdentityCommand` module's `New-IDSession` or `New-IDPlatformToken`), it is used as-is:
+Authenticate with the `IdentityCommand` module, using `New-IDSession` (interactive user, including any MFA challenges) or `New-IDPlatformToken` (non-interactive service user). Commands find the Cloud Visibility service url from the Identity session on first use - no separate connection step is needed:
 
 ```powershell
-Connect-CEMTenant -tenant_subdomain sometenant
+# Interactive user authentication
+New-IDSession -tenant_url https://abc1234.id.cyberark.cloud -Credential $Credential
 
-# Or provide the Cloud Visibility tenant url directly
-Connect-CEMTenant -tenant_url https://sometenant-cem.cyberark.cloud
+# Or non-interactive service user authentication via an OAuth platform token
+New-IDPlatformToken -tenant_url https://abc1234.id.cyberark.cloud -Credential $ServiceUserCredential
+
+Get-CEMWorkspaceDelegation -cloud_platform AWS -workspace_id '123456789012' -workspace_type account
 ```
 
-Otherwise, provide a credential and `Connect-CEMTenant` authenticates to CyberArk Identity for you - the Identity tenant url is discovered from the same subdomain:
+Cloud Visibility is served from a tenant-scoped gateway (`https://<subdomain>-cem.cyberark.cloud`), which platform discovery publishes as the `bootstrap` endpoint of the `cem` service key.
 
-```powershell
-# Interactive user authentication (any MFA challenges are handled by IdentityCommand)
-Connect-CEMTenant -tenant_subdomain sometenant -Credential $Credential
-
-# Non-interactive service user authentication via an OAuth platform token
-Connect-CEMTenant -tenant_subdomain sometenant -Credential $ServiceUserCredential -PlatformToken
-```
-
+Commands follow the current Identity session: a later `New-IDSession` or `New-IDPlatformToken` is used by the next command, and after `Close-IDSession` commands fail until you authenticate again.
 ### Delegating a Workspace
 
 A workspace delegation names the entities (users or roles) allowed to manage access policies and approve access requests for one or more cloud workspaces. Build the workspaces and delegates first, then create the delegation:
@@ -85,7 +81,6 @@ Remove-CEMWorkspaceDelegation -id 1
 
 | Command                        | Description                                          |
 | ------------------------------- | ----------------------------------------------------- |
-| `Connect-CEMTenant`              | Authenticate to Cloud Visibility                      |
 | `New-CEMWorkspaceDefinition`     | Define a cloud workspace for a workspace delegation   |
 | `New-CEMDelegateDefinition`      | Define a delegate entity for a workspace delegation   |
 | `New-CEMWorkspaceDelegation`     | Add delegates to one or more cloud workspaces         |

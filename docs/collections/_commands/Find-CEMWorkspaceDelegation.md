@@ -14,7 +14,7 @@ Searches workspace delegations
 
 ```
 Find-CEMWorkspaceDelegation [[-cloud_platforms] <String[]>] [[-workspace_names] <String[]>]
- [[-workspace_types] <String[]>] [[-owners] <String[]>] [[-searchString] <String>] [[-offset] <Int32>]
+ [[-workspace_types] <String[]>] [[-owners] <String[]>] [[-searchString] <String>]
  [[-limit] <Int32>] [<CommonParameters>]
 ```
 
@@ -117,21 +117,6 @@ Aliases:
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -offset
-Pagination offset for the first page of results (zero-based). Defaults to 0; subsequent pages are requested automatically.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```

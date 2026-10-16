@@ -21,7 +21,7 @@ function Set-CEMWorkspaceDelegation {
 
     process {
 
-        $URI = "$($ISPSSSession.tenant_url)/api/delegations/workspace/update/$id"
+        $URI = "$(Resolve-RequestUrl)/api/delegations/workspace/update/$id"
 
         #Fully replaces the delegates on every workspace the delegation covers - the workspaces
         #themselves are not part of this request and are left as they are.
